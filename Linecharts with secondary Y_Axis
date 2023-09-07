@@ -1,0 +1,25 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Read a CSV file
+df_Jan = pd.read_excel('ACC2_DailyAvgPerMonth.xlsx',sheet_name='Jan')
+
+fig, ax1 = plt.subplots(figsize=(14, 9))
+ax2 = ax1.twinx()
+plt.style.use('classic')
+
+
+plt.title('January',color='black', fontsize=18)
+ax1.plot(df_Jan.Hour, df_Jan['AVG_base$netload_baseline'], label = "baseline net load", color = 'r' )
+ax1.plot(df_Jan.Hour, df_Jan['AVG_netload_proposed'], label = "proposed net load", color = 'b')
+ax2.plot(df_Jan.Hour, df_Jan['AVG_ACC_rate'], label = "ACC_rate",color = 'g',linestyle = 'dashed',)
+ax1.set_ylabel("net load (kW)", color='black', fontsize=14)
+#ax1.set_ylabel("proposed net load", color='r', fontsize=14)
+ax2.set_ylabel("ACC rate ($/kWh)", color='black', fontsize=14)
+ax1.set_xlabel("Hour", color='black', fontsize=14)
+#plt.grid()
+
+fig.legend(loc='upper right')
+plt.show()
+
+fig.savefig('Jan_netLoadACC')
